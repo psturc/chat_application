@@ -19,6 +19,7 @@ function sendFile(response, filePath, fileContents) {
 }
 
 function serveStatic(response, cache, absPath) {
+	console.log(absPath)
 	if (cache[absPath]) {
 		sendFile(response, absPath, cache[absPath]);
 	} else {
@@ -41,6 +42,7 @@ function serveStatic(response, cache, absPath) {
 
 var server = http.createServer(function(request, response) {
 	var filePath = false;
+
 	if (request.url == '/') {
 		filePath = 'public/index.html';
 	} else {
@@ -53,3 +55,6 @@ var server = http.createServer(function(request, response) {
 server.listen(3000, function() {
 	console.log("Server listening on port 3000.");
 });
+
+var chatServer = require('./lib/chat_server');
+chatServer.listen(server);
